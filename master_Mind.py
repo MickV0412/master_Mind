@@ -7,6 +7,7 @@
 print("MasterMind")
 
 import random
+import os
 
 def generate_Code(length=4, digits=6):
     return [str(random.randint(1, digits)) for _ in range(length)]
@@ -27,6 +28,13 @@ def get_Feedback(secret, guess):
     
     return black_Pegs, white_Pegs
 
+def load_cheat_password():
+    try:
+        key_path = os.path.join(os.path.dirname(__file__), "cheat.key")
+        return open(key_path).read().strip()
+    except FileNotFoundError:
+        return None
+
 def show_Secret(mystery):
     print(mystery)
 
@@ -44,7 +52,9 @@ def play_Mastermind():
             valid_Guess = len(guess) == 4 and all(c in "123456" for c in guess)
             if not valid_Guess:
                 print("Invalid input. Enter 4 digits, each from 1 to 6.")
-            show_Secret(secret_Code) if guess == "cheat" else False
+            cheat_pw = load_cheat_password()
+            if cheat_pw and guess == cheat_pw:
+                show_Secret(secret_Code)
 
         black, white = get_Feedback(secret_Code, guess)
         print(f"Black pegs (correct position): {black}, White pegs (wrong position): {white}")
