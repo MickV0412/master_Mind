@@ -66,7 +66,8 @@ def play_Mastermind():
                 print("Invalid input. Enter 4 digits, each from 1 to 6.")
             cheat_pw = load_cheat_password()
             if cheat_pw and guess == cheat_pw:
-                show_Secret(secret_Code)
+                print("Admin Key detected, correct code is:")
+                show_Secret(secret_Code) 
 
         black, white = get_Feedback(secret_Code, guess)
         print(f"Black pegs (correct position): {black}, White pegs (wrong position): {white}")
