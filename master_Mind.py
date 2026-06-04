@@ -9,6 +9,8 @@ print("MasterMind")
 import random
 import os
 
+COLORS = {"1": "red", "2": "blue", "3": "yellow", "4": "green", "5": "orange", "6": "purple"}
+
 def generate_Code(length=4, digits=6):
     return [str(random.randint(1, digits)) for _ in range(length)]
 
@@ -38,9 +40,17 @@ def load_cheat_password():
 def show_Secret(mystery):
     print(mystery)
 
+def normalize_guess(guess):
+    color_to_digit = {v: k for k, v in COLORS.items()}
+    parts = guess.lower().replace(",", " ").split()
+    if len(parts) > 1:
+        return "".join(color_to_digit.get(p, "?") for p in parts)
+    return guess
+
 def play_Mastermind():
     print("Welcome to Mastermind!")
     print("Guess the 4-digit code. Each digit is from 1 to 6. You have 10 attempts.")
+    print(f"You can also use color names: {', '.join(f'{k}={v}' for k, v in COLORS.items())}")
     secret_Code = generate_Code()
     attempts = 10
 
@@ -49,6 +59,7 @@ def play_Mastermind():
         valid_Guess = False
         while not valid_Guess:
             guess = input(f"Attempt {attempt}: ").strip()
+            guess = normalize_guess(guess)
             valid_Guess = len(guess) == 4 and all(c in "123456" for c in guess)
             if not valid_Guess:
                 print("Invalid input. Enter 4 digits, each from 1 to 6.")
@@ -70,4 +81,3 @@ if __name__ == "__main__":
     while again == 'Y' :
         play_Mastermind()
         again  = input (f"Play again (Y/N) ?").upper()
-
