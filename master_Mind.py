@@ -9,7 +9,8 @@ print("MasterMind")
 import random
 import os
 
-COLORS = {"1": "red", "2": "blue", "3": "yellow", "4": "green", "5": "orange", "6": "purple"}
+# Case sensitive answers
+COLORS = {"1": "Red", "2": "Blue", "3": "Yellow", "4": "Green", "5": "Orange", "6": "Purple"}
 
 def generate_Code(length=4, digits=6):
     return [str(random.randint(1, digits)) for _ in range(length)]
@@ -42,7 +43,7 @@ def show_Secret(mystery):
 
 def normalize_guess(guess):
     color_to_digit = {v: k for k, v in COLORS.items()}
-    parts = guess.lower().replace(",", " ").split()
+    parts = guess.replace(",", " ").split()
     if len(parts) > 1:
         return "".join(color_to_digit.get(p, "?") for p in parts)
     return guess
