@@ -1,6 +1,6 @@
 name: Master_Mind
 
-on: [push, pull_reqeust]
+on: [push, pull_request]
 
 jobs:
   lint:
@@ -17,7 +17,7 @@ jobs:
         -name: Install dependencies
         run: | 
           python: -m pip install --upgrade pip
-          plp install flake
+          pip install flake
 
         -name: Run flake8
         run: flake8 masterMind.py
