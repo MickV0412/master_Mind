@@ -4,20 +4,20 @@ on: [push, pull_request]
 
 jobs:
   lint:
-    runs-on: ubuntu_latest
+    runs-on: ubuntu-latest
     steps:
       - name: checkout code
         uses: actions/checkout@v3
 
-        -name: Setup Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-        -name: Install dependencies
-        run: | 
-          python: -m pip install --upgrade pip
-          pip install flake
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
 
-        -name: Run flake8
-        run: flake8 masterMind.py
+      - name: Run flake8
+        run: flake8 master_Mind.py
